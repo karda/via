@@ -24,6 +24,11 @@ typedef struct V_ImageInfo {
   VString orientation;
   VString talairach;
   VString MPIL_vista_0;
+  VString indexOrigin
+  VString columnVec
+  VString rowVec
+  VString sliceVec
+  VString FOV
   size_t offsetHdr;                    /* length of ASCII header in bytes */
   long   spPH;
   long   spPG;

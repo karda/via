@@ -152,8 +152,28 @@ VImageInfoIni(VImageInfo *imageInfo)
   imageInfo->MPIL_vista_0=(VString) VMalloc(STRLEN);
   memset(imageInfo->MPIL_vista_0,0,STRLEN);
   imageInfo->MPIL_vista_0[0]='N';
-
   imageInfo->offsetHdr=0L;
+
+  /* neu, 28.3.2013 */
+  imageInfo->indexOrigin=(VString) VMalloc(STRLEN);
+  memset(imageInfo->indexOrigin,0,STRLEN);
+  imageInfo->indexOrigin[0]='N';
+
+  imageInfo->columnVec=(VString) VMalloc(STRLEN);
+  memset(imageInfo->columnVec,0,STRLEN);
+  imageInfo->columnVec[0]='N';
+
+  imageInfo->rowVec=(VString) VMalloc(STRLEN);
+  memset(imageInfo->rowVec,0,STRLEN);
+  imageInfo->rowVec[0]='N';
+
+  imageInfo->sliceVec=(VString) VMalloc(STRLEN);
+  memset(imageInfo->sliceVec,0,STRLEN);
+  imageInfo->sliceVec[0]='N';
+
+  imageInfo->FOV=(VString) VMalloc(STRLEN);
+  memset(imageInfo->FOV,0,STRLEN);
+  imageInfo->FOV[0]='N';
 }
 
 
@@ -498,6 +518,42 @@ VGetImageInfo(FILE *fp,VAttrList list,int object_id,VImageInfo *imageInfo)
       if (found = VLookupAttr (b->list,"repetition_time", & subposn)) {
 	if (VGetAttrValue (& subposn, NULL, VLongRepn, &lx)) {
 	  imageInfo->repetition_time = lx;
+	}
+      }
+
+      /* new, 28.3.2013 */
+      if (found = VLookupAttr (b->list,"indexOrigin", & subposn)) {
+	if (VGetAttrValue (& subposn, NULL, VStringRepn, &str)) {
+	  memset(imageInfo->indexOrigin,0,STRLEN);
+	  strncpy(imageInfo->indexOrigin,str,strlen(str));
+	}
+      }
+
+      if (found = VLookupAttr (b->list,"columnVec", & subposn)) {
+	if (VGetAttrValue (& subposn, NULL, VStringRepn, &str)) {
+	  memset(imageInfo->columnVec,0,STRLEN);
+	  strncpy(imageInfo->columnVec,str,strlen(str));
+	}
+      }
+
+      if (found = VLookupAttr (b->list,"rowVec", & subposn)) {
+	if (VGetAttrValue (& subposn, NULL, VStringRepn, &str)) {
+	  memset(imageInfo->rowVec,0,STRLEN);
+	  strncpy(imageInfo->rowVec,str,strlen(str));
+	}
+      }
+
+      if (found = VLookupAttr (b->list,"sliceVec", & subposn)) {
+	if (VGetAttrValue (& subposn, NULL, VStringRepn, &str)) {
+	  memset(imageInfo->sliceVec,0,STRLEN);
+	  strncpy(imageInfo->sliceVec,str,strlen(str));
+	}
+      }
+
+      if (found = VLookupAttr (b->list,"FOV", & subposn)) {
+	if (VGetAttrValue (& subposn, NULL, VStringRepn, &str)) {
+	  memset(imageInfo->FOV,0,STRLEN);
+	  strncpy(imageInfo->FOV,str,strlen(str));
 	}
       }
 
